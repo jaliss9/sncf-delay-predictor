@@ -38,7 +38,7 @@ texts = {
         "good": "ℹ️ Good punctuality expected",
         "average": "⚠️ Average punctuality - plan a buffer",
         "poor": "❌ High risk of delay",
-        "footer": "Data: SNCF Open Data | Model: Random Forest | Jalïss 2026",
+        "footer": "Data: SNCF Open Data | Model: Random Forest | Jalïss",
         "historical": "Historical Punctuality",
         "monthly_trend": "Monthly Trend",
         "comparison": "Route Comparison",
