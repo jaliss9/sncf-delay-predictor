@@ -61,7 +61,7 @@ texts = {
         "good": "ℹ️ Bonne ponctualité attendue",
         "average": "⚠️ Ponctualité moyenne - prévoyez une marge",
         "poor": "❌ Risque élevé de retard",
-        "footer": "Données : SNCF Open Data | Modèle : Random Forest | Par Jal pour Alstom Singapore",
+        "footer": "Données : SNCF Open Data | Modèle : Random Forest | Jalïss",
         "historical": "Historique de ponctualité",
         "monthly_trend": "Tendance mensuelle",
         "comparison": "Comparaison des liaisons",
@@ -197,30 +197,60 @@ col1, col2 = st.columns(2)
 
 with col1:
     top_routes = df_ml.groupby('liaison')['taux_regularite'].mean().sort_values(ascending=False).head(10).reset_index()
+    top_routes['pct_display'] = (top_routes['taux_regularite'] * 100).round(1).astype(str) + '%'
+    
     fig_top = px.bar(
         top_routes,
         x='taux_regularite',
         y='liaison',
         orientation='h',
         title=t["top_routes"],
-        labels={'taux_regularite': '', 'liaison': ''}
+        text='pct_display'
     )
-    fig_top.update_traces(marker_color='#00cc96')
-    fig_top.update_layout(yaxis={'categoryorder': 'total ascending'}, xaxis_tickformat='.0%', height=400)
+    fig_top.update_traces(
+        marker_color='#00cc96',
+        textposition='outside',
+        textfont_size=12
+    )
+    fig_top.update_layout(
+        yaxis={'categoryorder': 'total ascending'},
+        xaxis_tickformat='.0%',
+        xaxis_range=[0, 1],
+        height=500,
+        yaxis_tickfont_size=10,
+        showlegend=False,
+        xaxis_title='',
+        yaxis_title=''
+    )
     st.plotly_chart(fig_top, use_container_width=True)
 
 with col2:
     bottom_routes = df_ml.groupby('liaison')['taux_regularite'].mean().sort_values(ascending=True).head(10).reset_index()
+    bottom_routes['pct_display'] = (bottom_routes['taux_regularite'] * 100).round(1).astype(str) + '%'
+    
     fig_bottom = px.bar(
         bottom_routes,
         x='taux_regularite',
         y='liaison',
         orientation='h',
         title=t["bottom_routes"],
-        labels={'taux_regularite': '', 'liaison': ''}
+        text='pct_display'
     )
-    fig_bottom.update_traces(marker_color='#ef553b')
-    fig_bottom.update_layout(yaxis={'categoryorder': 'total descending'}, xaxis_tickformat='.0%', height=400)
+    fig_bottom.update_traces(
+        marker_color='#ef553b',
+        textposition='outside',
+        textfont_size=12
+    )
+    fig_bottom.update_layout(
+        yaxis={'categoryorder': 'total descending'},
+        xaxis_tickformat='.0%',
+        xaxis_range=[0, 1],
+        height=500,
+        yaxis_tickfont_size=10,
+        showlegend=False,
+        xaxis_title='',
+        yaxis_title=''
+    )
     st.plotly_chart(fig_bottom, use_container_width=True)
 
 st.markdown("---")
