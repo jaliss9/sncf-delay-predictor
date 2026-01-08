@@ -43,7 +43,23 @@ texts = {
         "monthly_trend": "Monthly Trend",
         "comparison": "Route Comparison",
         "top_routes": "Top 10 Most Punctual Routes",
-        "bottom_routes": "Top 10 Least Punctual Routes"
+        "bottom_routes": "Top 10 Least Punctual Routes",
+        "about_title": "About this app",
+        "about_text": """
+**TGV** (Train à Grande Vitesse) is the French high-speed rail service operated by **SNCF** (Société Nationale des Chemins de fer Français), the national railway company of France. TGV trains can reach speeds up to 320 km/h (200 mph) and connect major cities across France and neighboring countries.
+
+**What does this app predict?**
+This machine learning model predicts the **punctuality rate** (percentage of trains arriving on time) for a specific route, month, and year. A train is considered "on time" if it arrives within 5 minutes of the scheduled time.
+
+**How to interpret the results:**
+- 🟢 **90%+** : Excellent - very reliable route
+- 🔵 **80-89%** : Good - minor delays possible
+- 🟡 **70-79%** : Average - consider buffer time
+- 🔴 **Below 70%** : High delay risk - plan accordingly
+
+**Data source:** SNCF Open Data (2018-2025)
+        """,
+        "make_prediction": "Make a Prediction"
     },
     "Français": {
         "title": "🚄 Prédicteur de Régularité TGV",
@@ -66,7 +82,23 @@ texts = {
         "monthly_trend": "Tendance mensuelle",
         "comparison": "Comparaison des liaisons",
         "top_routes": "Top 10 liaisons les plus ponctuelles",
-        "bottom_routes": "Top 10 liaisons les moins ponctuelles"
+        "bottom_routes": "Top 10 liaisons les moins ponctuelles",
+        "about_title": "À propos de cette application",
+        "about_text": """
+Le **TGV** (Train à Grande Vitesse) est le service ferroviaire à grande vitesse français exploité par la **SNCF** (Société Nationale des Chemins de fer Français). Les TGV peuvent atteindre 320 km/h et relient les grandes villes de France et des pays voisins.
+
+**Que prédit cette application ?**
+Ce modèle de machine learning prédit le **taux de régularité** (pourcentage de trains arrivant à l'heure) pour une liaison, un mois et une année donnés. Un train est considéré "à l'heure" s'il arrive dans les 5 minutes suivant l'horaire prévu.
+
+**Comment interpréter les résultats :**
+- 🟢 **90%+** : Excellent - liaison très fiable
+- 🔵 **80-89%** : Bon - retards mineurs possibles
+- 🟡 **70-79%** : Moyen - prévoyez une marge
+- 🔴 **Moins de 70%** : Risque élevé - planifiez en conséquence
+
+**Source des données :** SNCF Open Data (2018-2025)
+        """,
+        "make_prediction": "Faire une prédiction"
     }
 }
 
@@ -74,6 +106,12 @@ t = texts[lang]
 
 st.title(t["title"])
 st.write(t["subtitle"])
+
+with st.expander(t["about_title"], expanded=False):
+    st.markdown(t["about_text"])
+
+st.markdown("---")
+st.subheader(t["make_prediction"])
 
 liaisons = sorted(model_info['liaisons'])
 liaison = st.selectbox(t["select_route"], liaisons)
